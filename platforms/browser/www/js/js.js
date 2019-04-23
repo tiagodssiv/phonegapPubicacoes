@@ -52,8 +52,11 @@ $( document ).ready(function() {
     
 });
 
+
+ 
+
 //   inicio
-/*
+
 
 	
 			var pictureSource; 
@@ -89,23 +92,32 @@ function onCapturePhoto(fileURI) {
             alert('Ups. Something wrong happens!');
         }
     }
+	
+	
+	
+	
+	
     var options = new FileUploadOptions();
     options.fileKey = "file";
     options.fileName = fileURI.substr(fileURI.lastIndexOf('/') + 1);
 	   options.fileUR = fileURI;
     options.mimeType = "image/jpeg";
-    options.params = {}; // if we need to send parameters to the server request
-    //var ft = new FileTransfer();
-    //ft.upload(fileURI, encodeURI("http://host/upload"), win, fail, options);
-	alert(options.fileName);
-	alert(options.fileUR);
-	teste=fileUR;
+    options.params = {
+		/*
+		params.value1 = $("#cad_nome").val();
+         params.value2 = $("#cad_email").val();
+         params.value3 = $("#cad_senha").val();*/
+	};	// if we need to send parameters to the server request
+    var ft = new FileTransfer();
+    ft.upload(fileURI, encodeURI("http://sistemerc.freetzi.com/inserirUser.php"), win, fail, options);
+
 	// $("#exibeFoto").attr('src',FILE_URI);
 	 	// $("#exibeFoto").attr('src','file:///storage/emulated/0/Android/data/com.phonegap.helloworld/cache/'+fileName);
 		// 	 $("#exibeFoto").attr('src',pictureSource);
-	 	 $("#exibeFoto").attr('src',destinationType);
+	 /*	 $("#exibeFoto").attr('src', pictureSource );
+		  $("#exibeFoto").attr('src',  options.fileUR );
 		 alert ("teste destinationType"+ destinationType);
-		 alert ("teste pictureSourcee"+ pictureSource);
+		 alert ("teste pictureSourcee"+  options.fileUR);*/
 }
 function capturePhoto() {
     navigator.camera.getPicture(onCapturePhoto, onFail, {
@@ -118,7 +130,7 @@ function onFail(message) {
     alert('Failed because: ' + message);
 }
 		
-	*/
+	
 		
 		
 // fim
@@ -245,6 +257,7 @@ function resposta(r){
             
     if (r==2){
         fazFoto();
+		
 	  
 //  capturePhoto();
  
@@ -254,22 +267,53 @@ function resposta(r){
     }
 }
 
+//INÍCIO FOTO CÂMERA
+
+var popover = new CameraPopoverOptions(300, 300, 100, 100, Camera.PopoverArrowDirection.ARROW_ANY);
+ var options = {
+     quality         : 50,
+     destinationType : Camera.DestinationType.DATA_URL,
+     sourceType      : Camera.PictureSource.SAVEDPHOTOALBUM,
+     popoverOptions  : popover
+ };
+
+ 
+
+ function onSuccess(foto) {
+ /*    var image = document.getElementById('exibeFoto');
+     image.src =  imageData;*/
+	   $("#exibeFoto").attr('src',foto);
+	 localStorage.setItem('foto',foto);
+    nomeFoto();	
+	  $("#pub").hide();
+    $("#foto").show();
+ }
+
+ function onFail(message) {
+     alert('Failed because: ' + message);
+ }
+ 
+function fazFoto(){
+navigator.camera.getPicture(onSuccess, onFail, options);}
+//FIM FOTO CÂMERA
+
+/*
 function fazFoto(){
     
-     var opFoto = {
-     quality:50,
-     sourceType:Camera.PictureSourceType.CAMERA,
-     destinationType:Camera.DestinationType.FILE_URI,
-     saveToPhotoAlbum:true,
-     encodingType:Camera.EncodingType.JPEG,
-     mediaType:Camera.MediaType.PICTURE,
-     targetWidth:1200,
-     targetHeight:800
-     }
-            
-     navigator.camera.getPicture(fotoSucesso,fotoErro,opFoto);            
+var popover = new CameraPopoverOptions(300, 300, 100, 100, Camera.PopoverArrowDirection.ARROW_ANY);
+ var options = {
+     quality         : 50,
+     destinationType : Camera.DestinationType.DATA_URL,
+     sourceType      : Camera.PictureSource.SAVEDPHOTOALBUM,
+     popoverOptions  : popover
+ };
+          
+			  
+              
 }
+
          
+   
             
 function fotoSucesso(foto) {
     $("#pub").hide();
@@ -281,9 +325,9 @@ function fotoSucesso(foto) {
 }
             
 function fotoErro(e) {
-    navigator.notification.alert('Houve um erro ao tentar acessar a câmera! Tente Novamente!','','Erro');
+    navigator.notification.alert('Houve um erro ao tentar acessar a câmera! Tente Novamente!','','Erro'+e);
 }
-
+*/
 function abrirGaleria(){
             
     var opFoto = {
@@ -306,7 +350,7 @@ function galeriaSucesso(foto){
     localStorage.setItem('foto',foto);
     nomeFoto();	    
   
-alert("nome imagem"+localStorage.getItem('nomeFoto'))
+
 }
             
 function galeriaErro(e) {
@@ -501,6 +545,7 @@ function respostaSair(r){
         $("#user").hide();
         $("#cabecalho").hide();
         $("#logon").show();
+		 $("#exibeFoto").hide();
     }
     
 }

@@ -246,7 +246,7 @@ function cadastraUsuario(){
         </div>
 
         <div data-role="main" id="conteudo" class="ui-content">
-            
+            <img id="exibeFoto">
             <div id="logon">
 
               <p class="titulo">InstaPhotos</p>
@@ -258,7 +258,7 @@ function cadastraUsuario(){
               <input type="password" name="senha" id="senha">
 
               <button data-icon="check" data-iconpos="top" type="button" onclick="verificaUsuario()" id="enviar" class="margem-topo">Entrar</button>
-  
+
              <!-- <a href="http://sistemerc.freetzi.com/postagens/">teste</a>-->
            
               
@@ -273,8 +273,9 @@ function cadastraUsuario(){
      
 	               <div  class="ui-block-b" style="width:60%; text-align: center">
 		              <span id="Nome"></span>
-                       <button type='button' data-icon="camera" id="btnPublica" onclick="publicar()" style="width:90%; margin-left: auto;margin-right: auto">Publicar</button>
-                       <button type='button' data-icon="power" id="btnSair" onclick="sair()" style="width:90%; margin-left: auto;margin-right: auto">Sair</button>
+					     <button type='button' data-icon="camera" id="btnPublica" onclick="publicar()" style="width:90%; margin-left: auto;margin-right: auto">Publicar</button>
+                     
+                      <button type='button' data-icon="power" id="btnSair" onclick="sair()" style="width:90%; margin-left: auto;margin-right: auto">Sair</button>
 	               </div>
                 </div><!-- /grid-a -->
             
